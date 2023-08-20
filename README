@@ -1,0 +1,83 @@
+# SimpleUserAdonisRest
+
+A RESTful API built with AdonisJS and Swagger, designed to manage users. This project is set up to work with a PostgreSQL database.
+
+## Table of Contents
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [API Documentation](#api-documentation)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+
+## Getting Started
+
+These instructions will help you set up the project on your local machine for development and testing purposes.
+
+### Prerequisites
+
+1. Node.js v20.5.1
+2. AdonisJS CLI
+3. PostgreSQL database
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/gocallum/adonis-swagger-api.git
+   ```
+   
+2. Navigate to the project directory:
+   ```bash
+   cd SimpleUserAdonisRest
+   ```
+   
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Copy the `.env.example` file to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+5. Update the `.env` file with your PostgreSQL database credentials.
+
+## Usage
+
+To start the server, run the following command:
+
+```bash
+node ace serve --watch
+```
+
+Your app will be running on `http://localhost:3333`.
+
+## API Documentation
+
+The API documentation can be found at `http://localhost:3333/docs` once the server is running.
+
+## Testing
+
+Run the test command:
+
+```bash
+npm test
+```
+
+## Contributing
+
+Contributions are welcomed! Please read the [CONTRIBUTING](CONTRIBUTING.md) guide for details on our code of conduct and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
+
+## Acknowledgments
+
+- Thanks to AdonisJS for the robust framework.
+- Swagger for the interactive API documentation.
