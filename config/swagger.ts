@@ -12,9 +12,9 @@ export default {
 		definition: {
 			openapi: '3.0.0',
 			info: {
-				title: 'Application with swagger docs',
+				title: 'Callum AdonisJS Simple Adonis JS Rest APIs',
 				version: '1.0.0',
-				description: 'My application with swagger docs'
+				description: 'Have fun working with the REST APIs'
 			}
 		},
 

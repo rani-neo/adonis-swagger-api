@@ -1,20 +1,18 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm';
+import { DateTime } from 'luxon';
+
+import Portfolio from './Portfolio';  // Import the Portfolio model
 
 /**
  * @swagger
  * components:
  *  schemas:
- *    User:
+ *    Client:
  *      type: object
  *      properties: 
  *        id:
  *          type: number
- *        first_name:
- *          type: string
- *        last_name:
- *          type: string
- *        phone_number:
+ *        client_name:
  *          type: string
  *        created_at:
  *          type: string
@@ -24,25 +22,25 @@ import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
  *          format: date-time
  *      required:
  *        - id
+ *        - client_name
  *        - created_at
  *        - updated_at
  */
-export default class User extends BaseModel {
+export default class Client extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public firstName: string
-
-  @column()
-  public lastName: string
-
-  @column()
-  public phoneNumber: string
+  public clientName: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @manyToMany(() => Portfolio , {
+    pivotTable: 'portfolio_clients',
+  })
+  public portfolios: ManyToMany<typeof Portfolio>
 }

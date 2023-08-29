@@ -20,7 +20,10 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.resource('users', 'UsersController').apiOnly()
+Route.resource('users', 'UsersController').apiOnly();
+Route.resource('portfolios', 'PortfoliosController').apiOnly()
+Route.resource('clients', 'ClientsController').apiOnly()
+Route.post('add-client-to-portfolio', 'PortfoliosController.addClientToPortfolio');
 
 Route.get('/', async () => {
   return { hello: 'world' }

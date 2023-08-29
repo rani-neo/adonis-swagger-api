@@ -31,19 +31,17 @@ export default class UsersController {
    *   get:
    *     tags:
    *       - Users
-   *     summary: Get user by ID
+   *     summary: Get a user by ID
    *     parameters:
    *       - in: path
    *         name: id
    *         required: true
-   *         description: ID of user to fetch
+   *         schema:
+   *           type: integer
+   *         description: ID of the user to return
    *     responses:
    *       '200':
    *         description: Successful operation
-   *         content:
-   *           application/json:
-   *             schema:
-   *               $ref: '#/components/schemas/User'
    *       '404':
    *         description: User not found
    */
@@ -61,22 +59,30 @@ export default class UsersController {
    *   post:
    *     tags:
    *       - Users
-   *     summary: Create a new user
+   *     summary: Create a user
    *     requestBody:
    *       required: true
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: '#/components/schemas/User'
+   *             type: object
+   *             properties:
+   *               first_name:
+   *                 type: string
+   *               last_name:
+   *                 type: string
+   *               phone_number:
+   *                 type: string
+   *             required:
+   *               - first_name
+   *               - last_name
    *     responses:
    *       '201':
-   *         description: User created successfully
+   *         description: User created
    */
   public async store({ request, response }: HttpContextContract) {
-    const user = new User()
-    // Assign properties from request to the user model and save
-    // Example: user.name = request.input('name')
-    await user.save()
+    const data = request.only(['firstName', 'lastName', 'phoneNumber'])
+    const user = await User.create(data)
     return response.status(201).json(user)
   }
 
@@ -86,29 +92,40 @@ export default class UsersController {
    *   put:
    *     tags:
    *       - Users
-   *     summary: Update an existing user
+   *     summary: Update a user
    *     parameters:
    *       - in: path
    *         name: id
    *         required: true
-   *         description: ID of user to update
+   *         schema:
+   *           type: integer
+   *         description: ID of the user to update
    *     requestBody:
    *       required: true
    *       content:
    *         application/json:
    *           schema:
-   *             $ref: '#/components/schemas/User'
+   *             type: object
+   *             properties:
+   *               first_name:
+   *                 type: string
+   *               last_name:
+   *                 type: string
+   *               phone_number:
+   *                 type: string
    *     responses:
    *       '200':
-   *         description: User updated successfully
+   *         description: User updated
+   *       '404':
+   *         description: User not found
    */
   public async update({ params, request, response }: HttpContextContract) {
     const user = await User.find(params.id)
     if (!user) {
       return response.status(404).send({ message: 'User not found' })
     }
-    // Update properties from request
-    // Example: user.name = request.input('name')
+    const data = request.only(['firstName', 'lastName', 'phoneNumber'])
+    user.merge(data)
     await user.save()
     return response.json(user)
   }
@@ -124,10 +141,14 @@ export default class UsersController {
    *       - in: path
    *         name: id
    *         required: true
-   *         description: ID of user to delete
+   *         schema:
+   *           type: integer
+   *         description: ID of the user to delete
    *     responses:
    *       '204':
-   *         description: User deleted successfully
+   *         description: User deleted
+   *       '404':
+   *         description: User not found
    */
   public async destroy({ params, response }: HttpContextContract) {
     const user = await User.find(params.id)
@@ -135,6 +156,6 @@ export default class UsersController {
       return response.status(404).send({ message: 'User not found' })
     }
     await user.delete()
-    return response.status(204).send()
+    return response.status(204).send({})
   }
 }
